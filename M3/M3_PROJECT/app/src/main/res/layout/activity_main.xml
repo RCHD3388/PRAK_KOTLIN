@@ -70,14 +70,14 @@
                 android:paddingEnd="10dp"
                 android:paddingRight="0dp"
                 android:paddingBottom="0dp"
-                android:text="Add Movies"
+                android:text="Add Cinema"
                 android:textSize="12sp" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCinema"
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
+            android:layout_height="250dp" />
 
     </LinearLayout>
 
@@ -161,7 +161,7 @@
                 android:paddingEnd="10dp"
                 android:paddingRight="0dp"
                 android:paddingBottom="0dp"
-                android:text="Add Cinema"
+                android:text="Add Movies"
                 android:textSize="12sp" />
         </LinearLayout>
 

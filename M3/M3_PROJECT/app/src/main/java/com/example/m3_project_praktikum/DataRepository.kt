@@ -30,5 +30,12 @@ class DataRepository {
                     "aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi " +
                     "ut aliquip ex ea commodo consequat.", "2024", "MBC", "Romance", "R13+", "2", "48", 5f, R.drawable.poster_5),
         )
+
+        var cinemaList: ArrayList<Cinema> = arrayListOf<Cinema>(
+            Cinema("Ciputra World", "Gatau lupa juga", "081236754", "10", arrayListOf("Premiere", "IMAX")),
+            Cinema("Galaxy Mall", "Gatau lupa juga", "081236754", "10", arrayListOf("Premiere")),
+            Cinema("Tunjungan Plaza", "Gatau lupa juga", "081236754", "10", arrayListOf("Cinema XXI", "IMAX")),
+            Cinema("Pakuwon Mall", "Gatau lupa juga", "081236754", "10", arrayListOf("Cinema XXI", "Premiere")),
+        )
     }
 }

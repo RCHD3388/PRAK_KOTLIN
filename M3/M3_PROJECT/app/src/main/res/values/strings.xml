@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">m3_project_praktikum</string>
+    <string-array name="cinema_filter">
+        <item>Alphabetical (A-Z)</item>
+        <item>Alphabetical (Z-A)</item>
+        <item>Nearest</item>
+        <item>Farthest</item>
+    </string-array>
 </resources>

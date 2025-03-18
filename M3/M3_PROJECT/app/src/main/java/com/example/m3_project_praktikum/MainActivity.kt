@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnSeeCinema.setOnClickListener { moveAct(CinemaActivity::class.java) }
         binding.btnAddMovies.setOnClickListener { moveAct(AddMovieActivity::class.java) }
         binding.btnSeeMovies.setOnClickListener { moveAct(MovieActivity::class.java) }
+
     }
 
     private fun moveAct(activityClass: Class<out Activity>){

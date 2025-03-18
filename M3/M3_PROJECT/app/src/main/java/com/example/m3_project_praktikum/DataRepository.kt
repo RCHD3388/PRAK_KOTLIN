@@ -37,5 +37,7 @@ class DataRepository {
             Cinema("Tunjungan Plaza", "Gatau lupa juga", "081236754", "10", arrayListOf("Cinema XXI", "IMAX")),
             Cinema("Pakuwon Mall", "Gatau lupa juga", "081236754", "10", arrayListOf("Cinema XXI", "Premiere")),
         )
+
+        var currentCinema: Cinema? = null
     }
 }

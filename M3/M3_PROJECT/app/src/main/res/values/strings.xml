@@ -6,4 +6,12 @@
         <item>Nearest</item>
         <item>Farthest</item>
     </string-array>
+
+    <string-array name="production_house">
+        <item>MBC</item>
+        <item>SBS</item>
+        <item>KBS</item>
+        <item>TvN</item>
+        <item>Studio Dragon</item>
+    </string-array>
 </resources>

@@ -36,6 +36,11 @@ class CinemaActivity : AppCompatActivity() {
         setupRecycleViewCinema()
     }
 
+    override fun onResume() {
+        super.onResume()
+        cinemaAdapter.notifyDataSetChanged()
+    }
+
     private fun setupRecycleViewCinema(){
         var layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
         var layout:Int = R.layout.cinema_item

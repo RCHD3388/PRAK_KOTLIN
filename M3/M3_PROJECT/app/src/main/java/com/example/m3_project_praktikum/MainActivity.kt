@@ -49,6 +49,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+//        categoryAdapter.notifyDataSetChanged()
+//        moviesAdapter.notifyDataSetChanged()
+//        cinemaAdapter.notifyDataSetChanged()
+    }
+
     private fun moveAct(activityClass: Class<out Activity>){
         var intent = Intent(this, activityClass)
         startActivity(intent)

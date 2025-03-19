@@ -167,7 +167,7 @@
             app:srcCompat="@drawable/phone" />
 
         <TextView
-            android:id="@+id/tvDistance"
+            android:id="@+id/tvPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
@@ -198,7 +198,7 @@
             app:srcCompat="@drawable/distance" />
 
         <TextView
-            android:id="@+id/tvPhone"
+            android:id="@+id/tvDistance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -19,14 +20,15 @@ class GameActivity : AppCompatActivity() {
     var currentHidden: String = "";
     var currentAns: String = "";
     val textList = mutableListOf<String>(
-        "act", "dog",
-//        "ear", "top", "bat", "can", "fit", "log", "sun", "red",
-//        "stop", "bake", "mile", "rest", "dust", "grip", "torn", "hand", "clap", "bend",
-//        "trade", "stone", "grape", "vase", "pride", "flame", "drive", "dance", "chase", "price",
-//        "stripe", "dancer", "planet", "garden", "stream", "branch", "gravel", "market", "ransom"
+        "act", "dog","ear", "top", "bat", "can", "fit", "log", "sun", "red",
+        "stop", "bake", "mile", "rest", "dust", "grip", "torn", "hand", "clap", "bend",
+        "trade", "stone", "grape", "vase", "pride", "flame", "drive", "dance", "chase", "price",
+        "stripe", "dancer", "planet", "garden", "stream", "branch", "gravel", "market", "ransom"
     )
     private var fieldList: ArrayList<Button> = arrayListOf<Button>();
     private var heartList: ArrayList<ImageView> = arrayListOf<ImageView>();
+
+    var toast: Toast? = null
 
     fun initNewBindState(){
         currentHidden = textList.random()
@@ -79,13 +81,21 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
+    fun addNewToast(text: String){
+        toast?.cancel()
+        toast = Toast.makeText(this, text, Toast.LENGTH_SHORT)
+        toast?.show()
+    }
+
     fun handleCheck(){
         if(currentAns.length == currentHidden.length){
             if(currentAns.equals(currentHidden, ignoreCase = true)){
                 handleSuccess()
+                addNewToast("Berhasil tabak kata ${currentHidden}")
                 initNewBindState()
             }else{
                 handleFailed()
+                addNewToast("Tebakan anda salah")
             }
         }
     }
@@ -144,5 +154,8 @@ class GameActivity : AppCompatActivity() {
         }
 
         binding.btnDel.setOnClickListener { handleClickBackKey() }
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
     }
 }

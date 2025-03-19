@@ -39,5 +39,6 @@ class DataRepository {
         )
 
         var currentCinema: Cinema? = null
+        var currentMovie: Movie? = null
     }
 }

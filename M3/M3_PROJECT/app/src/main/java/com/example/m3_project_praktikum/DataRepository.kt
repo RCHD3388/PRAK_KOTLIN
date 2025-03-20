@@ -38,6 +38,14 @@ class DataRepository {
             Cinema("Pakuwon Mall", "Gatau lupa juga", "081236754", "10", arrayListOf("Cinema XXI", "Premiere")),
         )
 
+        val moviePosterList: ArrayList<MoviePoster> = arrayListOf<MoviePoster>(
+            MoviePoster(R.drawable.poster_1, true, "Gambar 1"),
+            MoviePoster(R.drawable.poster_2, false, "Gambar 2"),
+            MoviePoster(R.drawable.poster_3, false, "Gambar 3"),
+            MoviePoster(R.drawable.poster_4, false, "Gambar 4"),
+            MoviePoster(R.drawable.poster_5, false, "Gambar 5"),
+        )
+
         var currentCinema: Cinema? = null
         var currentMovie: Movie? = null
     }

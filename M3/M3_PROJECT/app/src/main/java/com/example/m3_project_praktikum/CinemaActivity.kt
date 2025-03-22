@@ -37,15 +37,16 @@ class CinemaActivity : AppCompatActivity() {
         }
 
         setupRecycleViewCinema()
+        updateSort()
     }
 
     fun updateSort(){
         var filter: String = binding.spFilterCinema.selectedItem.toString()
 
         if(filter == "Alphabetical (A-Z)"){
-            DataRepository.cinemaList.sortBy { it.title }
+            DataRepository.cinemaList.sortBy { it.title.lowercase() }
         }else if(filter == "Alphabetical (Z-A)"){
-            DataRepository.cinemaList.sortByDescending { it.title }
+            DataRepository.cinemaList.sortByDescending { it.title.lowercase() }
         }else if(filter == "Nearest"){
             DataRepository.cinemaList.sortBy { it.distance }
         }else if(filter == "Farthest"){

@@ -39,7 +39,7 @@ class AddMovieActivity : AppCompatActivity() {
             var year = binding.etYear.text.toString()
             var production = binding.spProd.selectedItem.toString()
 
-            var genre = ", "
+            var genre = ""
             if (binding.cbRomance.isChecked) genre += "Romance, "
             if (binding.cbThriller.isChecked) genre += "Thriller, "
             if (binding.cbFantasy.isChecked) genre += "Fantasy, "
@@ -47,7 +47,7 @@ class AddMovieActivity : AppCompatActivity() {
             if (binding.cbSciFi.isChecked) genre += "Sci-Fi, "
             if (binding.cbMystery.isChecked) genre += "Mystery, "
 
-            genre = genre.dropLast(2)
+            genre = if(!genre.isEmpty()){ genre.dropLast(2)} else ""
 
             var agerating = ""
             if(binding.rbSU.isChecked) agerating = "SU"

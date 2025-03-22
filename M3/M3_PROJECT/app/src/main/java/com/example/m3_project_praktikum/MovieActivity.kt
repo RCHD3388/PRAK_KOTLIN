@@ -3,6 +3,7 @@ package com.example.m3_project_praktikum
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -40,7 +41,7 @@ class MovieActivity : AppCompatActivity() {
         }
         binding.rbName.setOnCheckedChangeListener { buttonView, isChecked ->
             if(isChecked){
-                DataRepository.movieList.sortBy { it.title }
+                DataRepository.movieList.sortBy { it.title.lowercase() }
             }else{
                 DataRepository.movieList.sortByDescending { it.rating }
             }
@@ -52,7 +53,7 @@ class MovieActivity : AppCompatActivity() {
         initCond()
     }
     private fun initCond(){
-        DataRepository.movieList.sortBy { it.title }
+        DataRepository.movieList.sortBy { it.title.lowercase() }
         movieAdapter.notifyDataSetChanged()
     }
     private fun setupRecycleViewMovies(type: Int){

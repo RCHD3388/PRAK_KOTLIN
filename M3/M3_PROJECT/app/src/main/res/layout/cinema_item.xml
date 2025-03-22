@@ -32,7 +32,7 @@
                 android:id="@+id/bannerCinema1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="4dp"
                 android:backgroundTint="#026d81"
                 android:minWidth="0dp"
                 android:minHeight="0dp"
@@ -40,13 +40,14 @@
                 android:paddingTop="4dp"
                 android:paddingRight="16dp"
                 android:paddingBottom="4dp"
-                android:text="Premier" />
+                android:text="Premier"
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/bannerCinema2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="4dp"
                 android:backgroundTint="#026d81"
                 android:minWidth="0dp"
                 android:minHeight="0dp"
@@ -54,7 +55,8 @@
                 android:paddingTop="4dp"
                 android:paddingRight="16dp"
                 android:paddingBottom="4dp"
-                android:text="IMAX" />
+                android:text="IMAX"
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/bannerCinema3"
@@ -67,7 +69,8 @@
                 android:paddingTop="4dp"
                 android:paddingRight="16dp"
                 android:paddingBottom="4dp"
-                android:text="Cinema XXI" />
+                android:text="Cinema XXI"
+                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -87,6 +90,7 @@
         android:paddingRight="16dp"
         android:paddingBottom="4dp"
         android:text="Delete"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

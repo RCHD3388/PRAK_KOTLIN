@@ -32,8 +32,26 @@ class CinemaActivity : AppCompatActivity() {
         binding.btnBack.setOnClickListener {
             finish()
         }
+        binding.btnFilterCinema.setOnClickListener {
+            updateSort()
+        }
 
         setupRecycleViewCinema()
+    }
+
+    fun updateSort(){
+        var filter: String = binding.spFilterCinema.selectedItem.toString()
+
+        if(filter == "Alphabetical (A-Z)"){
+            DataRepository.cinemaList.sortBy { it.title }
+        }else if(filter == "Alphabetical (Z-A)"){
+            DataRepository.cinemaList.sortByDescending { it.title }
+        }else if(filter == "Nearest"){
+            DataRepository.cinemaList.sortBy { it.distance }
+        }else if(filter == "Farthest"){
+            DataRepository.cinemaList.sortByDescending { it.distance }
+        }
+        cinemaAdapter.notifyDataSetChanged()
     }
 
     override fun onResume() {

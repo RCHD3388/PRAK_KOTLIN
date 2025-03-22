@@ -12,3 +12,9 @@ class Movie (
     var rating: Float,
     var poster: Int,
 )
+
+class MoviePoster (
+    var poster: Int,
+    var checked: Boolean,
+    var label: String
+)

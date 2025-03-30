@@ -51,9 +51,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        if(DataRepository.cinemaList.size <= 4){
+            cinemaAdapter.notifyDataSetChanged()
+        }
 //        categoryAdapter.notifyDataSetChanged()
 //        moviesAdapter.notifyDataSetChanged()
-//        cinemaAdapter.notifyDataSetChanged()
     }
 
     private fun moveAct(activityClass: Class<out Activity>){

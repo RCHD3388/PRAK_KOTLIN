@@ -5,5 +5,6 @@ data class User (
     var password: String,
     var name: String = "",
     var dateOfBirth: String = "",
-    var phoneNumber: String = ""
+    var phoneNumber: String = "",
+    var vouchers: MutableList<Voucher> = mutableListOf<Voucher>()
 )

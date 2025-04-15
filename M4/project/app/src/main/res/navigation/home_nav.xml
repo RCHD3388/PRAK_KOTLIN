@@ -10,4 +10,21 @@
         android:name="com.example.myapplication.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" /><action android:id="@+id/action_global_homeFragment" app:destination="@id/homeFragment"/>
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.example.myapplication.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account" />
+    <action android:id="@+id/action_global_accountFragment" app:destination="@id/accountFragment" />
+    <fragment
+        android:id="@+id/voucherFragment"
+        android:name="com.example.myapplication.VoucherFragment"
+        android:label="fragment_voucher"
+        tools:layout="@layout/fragment_voucher" />
+    <action android:id="@+id/action_global_voucherFragment" app:destination="@id/voucherFragment" />
+    <fragment
+        android:id="@+id/createVoucherFragment"
+        android:name="com.example.myapplication.CreateVoucherFragment"
+        android:label="fragment_create_voucher"
+        tools:layout="@layout/fragment_create_voucher" /><action android:id="@+id/action_global_createVoucherFragment" app:destination="@id/createVoucherFragment"/>
 </navigation>

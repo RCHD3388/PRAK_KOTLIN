@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">projectM5</string>
+    <array name="account_array">
+        <item>Cash</item>
+        <item>jalanPay</item>
+        <item>ShopeePay</item>
+        <item>HapePay</item>
+        <item>Card</item>
+    </array>
+    <string name="select_category_prompt">Pilih Kategori</string>
 </resources>

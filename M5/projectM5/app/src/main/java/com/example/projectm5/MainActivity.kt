@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
             if(username.isNotEmpty() && password.isNotEmpty()){
                 if(DataRepo.isValiduser(username, password)){
+                    DataRepo.signIn(username);
                     Toast.makeText(this, "login berhasil", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)

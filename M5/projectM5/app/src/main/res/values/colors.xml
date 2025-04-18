@@ -7,4 +7,6 @@
     <color name="btn_primary">#1c7bf9</color>
     <color name="primary_bold">#62b3f5</color>
     <color name="danger">#f66e62</color>
+    <color name="active_switch">#d1d0f8</color>
+    <color name="active_switch_text">#4644ff</color>
 </resources>

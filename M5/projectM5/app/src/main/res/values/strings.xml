@@ -2,8 +2,8 @@
     <string name="app_name">projectM5</string>
     <array name="account_array">
         <item>Cash</item>
-        <item>jalanPay</item>
-        <item>ShopeePay</item>
+        <item>JalanPay</item>
+        <item>ShoopePay</item>
         <item>HapePay</item>
         <item>Card</item>
     </array>

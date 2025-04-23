@@ -53,4 +53,6 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-core-ktx:2.8.7")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
     implementation("androidx.activity:activity-ktx:1.10.1")
+
+    implementation("io.github.vanpra.compose-material-dialogs:datetime:0.8.1-rc")
 }

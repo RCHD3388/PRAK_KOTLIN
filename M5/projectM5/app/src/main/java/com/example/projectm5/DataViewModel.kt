@@ -11,19 +11,15 @@ class DataViewModel: ViewModel() {
     val currentAddTransState: LiveData<String>
         get() = _currenAddTransState
 
-    private val _totalHarga: MutableLiveData<Int> = MutableLiveData(0)
-    val totalHarga: LiveData<Int>
+    private val _totalHarga: MutableLiveData<String> = MutableLiveData("0")
+    val totalHarga: LiveData<String>
         get() = _totalHarga
 
     fun setCurrentAddTransState(state: String){
         _currenAddTransState.value = state
     }
 
-    fun setTotalHarga(harga: Int){
+    fun setTotalHarga(harga: String){
         _totalHarga.value = harga
-    }
-
-    fun getFormattedTotalHarga(): String{
-        return NumberFormat.getNumberInstance(Locale("in", "ID")).format(_totalHarga.value)
     }
 }

@@ -29,7 +29,7 @@ class RegisterActivity : AppCompatActivity() {
             var confirm = binding.etConfirmPassword.text.toString()
 
             if(username.isNotEmpty() && name.isNotEmpty() && password.isNotEmpty() && confirm.isNotEmpty()){
-                if(!DataRepo.isValiduser(username, password)){
+                if(!DataRepo.usernameExists(username)){
                     if(password == confirm){
                         DataRepo.addData(username, name, password)
                         Toast.makeText(this, "register berhasil", Toast.LENGTH_SHORT).show()
@@ -39,10 +39,10 @@ class RegisterActivity : AppCompatActivity() {
                         Toast.makeText(this, "password dan confirm password harus sama", Toast.LENGTH_SHORT).show()
                     }
                 }else{
-                    Toast.makeText(this, "username atau password tidak boleh kosong", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "username tersebut telah digunakan", Toast.LENGTH_SHORT).show()
                 }
             }else{
-                Toast.makeText(this, "username atau password tidak boleh kosong", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "semua field harus diisi", Toast.LENGTH_SHORT).show()
             }
         }
     }

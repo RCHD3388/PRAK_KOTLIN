@@ -4,18 +4,25 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.example.myapplication.databinding.ActivityRegisterBinding
+import com.example.myapplication.entity.UserEntity
+import com.example.myapplication.viewmodel.UserRegisterViewModel
 
 class RegisterActivity : AppCompatActivity() {
     lateinit var binding: ActivityRegisterBinding;
+    val viewModel by viewModels<UserRegisterViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        viewModel.init()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_register)
 
         binding.btnRegister.setOnClickListener {
@@ -29,8 +36,7 @@ class RegisterActivity : AppCompatActivity() {
                 if(password == confirm){
                     if(true){
                         // berhasil register
-                        Toast.makeText(this, "Berhasil melakukan register", Toast.LENGTH_SHORT).show()
-                        finish()
+                        viewModel.registerUser(username, name, password, dob);
                     }else{
                         Toast.makeText(this, "Gagal melakukan register", Toast.LENGTH_SHORT).show()
                     }
@@ -44,5 +50,15 @@ class RegisterActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener {
             finish()
         }
+
+        val registerStatusObserver = Observer<String> {
+            if(it != ""){
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+                if(it == "Berhasil melakukan register"){
+                    finish()
+                }
+            }
+        }
+        viewModel.registerStatus.observe(this, registerStatusObserver)
     }
 }

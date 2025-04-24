@@ -31,12 +31,30 @@ class UserLoginViewModel: ViewModel() {
     fun loginUser(username: String, password: String) {
         viewModelScope.launch {
             val user = App.db.userDao().get(username)
-            _loggedInStatus.value = "Gagal login, username atau password salah";
             if (user != null) {
                 if (user.password == password) {
+                    COlogin(user);
                     _loggedInStatus.value = "Berhasil melakukan login";
+                }else{
+                    _loggedInStatus.value = "Gagal login, username atau password salah";
                 }
+            }else{
+                _loggedInStatus.value = "Gagal login, username atau password salah";
             }
+        }
+    }
+
+    companion object{
+        var loggedInStatus = false;
+        var loggedinUser: UserEntity = UserEntity("", "", "", "")
+
+        fun COlogout(){
+            loggedInStatus = false;
+            loggedinUser = UserEntity("", "", "", "")
+        }
+        fun COlogin(user: UserEntity){
+            loggedInStatus = true;
+            loggedinUser = user;
         }
     }
 }

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.viewmodel.UserLoginViewModel
 
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        viewModel.init()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         binding.btnRegister.setOnClickListener {
@@ -32,16 +34,21 @@ class MainActivity : AppCompatActivity() {
             val password = binding.etPassword.text.toString()
 
             if(username.isNotEmpty() && password.isNotEmpty()){
-                if(true){
-
-                    Toast.makeText(this, "Berhasil login", Toast.LENGTH_SHORT).show()
-                    // navigate home page
-                }else{
-                    Toast.makeText(this, "Username atau password salah", Toast.LENGTH_SHORT).show()
-                }
+                viewModel.loginUser(username, password);
             }else{
                 Toast.makeText(this, "Semua field harus diisi", Toast.LENGTH_SHORT).show()
             }
         }
+
+        val loginStatusObserver = Observer<String> {
+            if(it != ""){
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+                if(it == "Berhasil melakukan login"){
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        }
+        viewModel.loggedInStatus.observe(this, loginStatusObserver)
     }
 }

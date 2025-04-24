@@ -45,16 +45,16 @@ class UserLoginViewModel: ViewModel() {
     }
 
     companion object{
-        var loggedInStatus = false;
-        var loggedinUser: UserEntity = UserEntity("", "", "", "")
+        var COloggedInStatus = false;
+        var COloggedinUser: UserEntity = UserEntity("", "", "", "")
 
         fun COlogout(){
-            loggedInStatus = false;
-            loggedinUser = UserEntity("", "", "", "")
+            COloggedInStatus = false;
+            COloggedinUser = UserEntity("", "", "", "")
         }
         fun COlogin(user: UserEntity){
-            loggedInStatus = true;
-            loggedinUser = user;
+            COloggedInStatus = true;
+            COloggedinUser = user;
         }
     }
 }

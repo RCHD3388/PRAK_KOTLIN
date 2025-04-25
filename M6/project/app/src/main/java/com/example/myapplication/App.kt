@@ -8,7 +8,7 @@ class App: Application() {
     }
     override fun onCreate() {
         super.onCreate()
-        baseContext.deleteDatabase(AppDatabase.DATABASE_NAME)
+//        baseContext.deleteDatabase(AppDatabase.DATABASE_NAME)
         db = AppDatabase.getInstance(baseContext)
     }
 }

@@ -3,5 +3,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="light_blue">#41a3f4</color>
-    <color name="background_blue">#c3e4ff</color>>
+    <color name="background_blue">#c3e4ff</color>
+    <color name="danger_button">#ff9092</color>
 </resources>

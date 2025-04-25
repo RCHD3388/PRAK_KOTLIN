@@ -18,7 +18,6 @@ class HomeViewModel: ViewModel() {
     val postErrorMessage: LiveData<String>
         get() = _postErrorMessage
 
-
     private fun refreshList(){
         viewModelScope.launch {
             _tweets.value = App.db.tweetDao().fetch()
@@ -35,9 +34,17 @@ class HomeViewModel: ViewModel() {
             if(tweet.isNotEmpty()){
                 val tweetEntity = TweetEntity(user_username = user.username, user_name = user.name, tweet = tweet, like = 0, comment = 0, retweet = 0);
                 App.db.tweetDao().insert(tweetEntity);
+                refreshList()
             }else{
                 _postErrorMessage.value = "Tweet tidak boleh kosong";
             }
         }
+    }
+
+    fun likeTweet(tweet: TweetEntity){
+
+    }
+    fun retweetTweet(tweet: TweetEntity){
+
     }
 }

@@ -45,16 +45,20 @@
 
             <EditText
                 android:id="@+id/etTweet"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
+                android:layout_marginEnd="8dp"
                 android:background="@android:color/transparent"
                 android:ems="10"
                 android:hint="What's happening ?"
                 android:inputType="text"
+                android:maxLines="2"
+                android:minLines="2"
                 android:textColorHint="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnTweet"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toTopOf="parent" />
 

@@ -34,6 +34,7 @@ class UserRegisterViewModel: ViewModel() {
             if (user == null) {
                 App.db.userDao().insert(UserEntity(username, password, name, dateOfBirth))
                 _registerStatus.value = "Berhasil melakukan register";
+                refreshList()
             }else{
                 _registerStatus.value = "User telah terdaftar pada App"
             }

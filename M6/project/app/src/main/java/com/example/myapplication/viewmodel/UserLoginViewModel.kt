@@ -35,6 +35,7 @@ class UserLoginViewModel: ViewModel() {
                 if (user.password == password) {
                     COlogin(user);
                     _loggedInStatus.value = "Berhasil melakukan login";
+                    refreshList()
                 }else{
                     _loggedInStatus.value = "Gagal login, username atau password salah";
                 }

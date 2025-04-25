@@ -14,6 +14,7 @@ data class TweetEntity(
     @ColumnInfo(name = "like") val like:Int,
     @ColumnInfo(name = "comment") val comment:Int,
     @ColumnInfo(name = "retweet") val retweet:Int,
+    @ColumnInfo(name = "is_retweeted") val is_retweeted:Boolean = false,
 ){
     override fun toString(): String {
         return "$user_name - $user_username";

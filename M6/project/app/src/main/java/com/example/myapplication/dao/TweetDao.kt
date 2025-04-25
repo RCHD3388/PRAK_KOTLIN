@@ -25,5 +25,11 @@ interface TweetDao {
     suspend fun fetch():List<TweetEntity>
 
     @Query("SELECT * FROM tweets where tweet_id = :tweetId")
-    suspend fun get(tweetId:Int):TweetEntity?
+    suspend fun get(tweetId:Long):TweetEntity?
+
+    @Query("SELECT * FROM tweets where user_username = :username AND retweeted_from = :retweetedFrom")
+    suspend fun getRetweeted(username: String, retweetedFrom:Long):TweetEntity?
+
+    @Query("SELECT * FROM tweets where retweeted_from = :tweetId")
+    suspend fun getRetweetedTweetFromOriginal(tweetId: Long): List<TweetEntity>?
 }

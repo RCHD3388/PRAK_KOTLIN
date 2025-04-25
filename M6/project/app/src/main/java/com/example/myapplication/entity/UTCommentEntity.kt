@@ -7,9 +7,9 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "comments")
 data class UTCommentEntity(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id_comment") val id_comment:String,
+    @ColumnInfo(name = "id_comment") val id_comment:Long = 0,
     @ColumnInfo(name = "user_username") val user_username:String,
-    @ColumnInfo(name = "tweet_id") var tweet_id:String,
+    @ColumnInfo(name = "tweet_id") var tweet_id:Long,
     @ColumnInfo(name = "comment") val comment:String,
 ){
     override fun toString(): String {

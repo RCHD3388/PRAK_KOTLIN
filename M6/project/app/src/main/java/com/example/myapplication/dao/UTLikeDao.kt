@@ -18,6 +18,12 @@ interface UTLikeDao {
     @Query("SELECT * FROM likes")
     suspend fun fetch():List<UTLikeEntity>
 
+    @Query("SELECT * FROM likes where user_username = :username")
+    suspend fun get(username:String): List<UTLikeEntity>?
+
+    @Query("SELECT * FROM likes where tweet_id = :tweetId")
+    suspend fun getTweetLikes(tweetId: Long): List<UTLikeEntity>?
+
     @Query("SELECT * FROM likes where user_username = :username AND tweet_id = :tweetId")
-    suspend fun get(username:String, tweetId: String): UTLikeEntity?
+    suspend fun getOne(username:String, tweetId:Long): UTLikeEntity?
 }

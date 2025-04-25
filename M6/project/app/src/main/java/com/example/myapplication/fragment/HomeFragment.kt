@@ -14,6 +14,7 @@ import com.example.myapplication.R
 import com.example.myapplication.adapter.HomeTweetAdapter
 import com.example.myapplication.databinding.FragmentHomeBinding
 import com.example.myapplication.entity.TweetEntity
+import com.example.myapplication.entity.dto.UserTweetDto
 import com.example.myapplication.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment() {
@@ -60,7 +61,7 @@ class HomeFragment : Fragment() {
         binding.rvTweets.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
         binding.rvTweets.adapter = homeTweetAdapter
 
-        val tweetObserver = Observer<List<TweetEntity>> {
+        val tweetObserver = Observer<List<UserTweetDto>> {
             homeTweetAdapter.submitList(it)
         }
         viewModel.tweets.observe(viewLifecycleOwner, tweetObserver)

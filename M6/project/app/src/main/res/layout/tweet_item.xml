@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/black">
@@ -128,6 +128,29 @@
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/ivRetweets"
                 app:layout_constraintTop_toBottomOf="@+id/tvTweet" />
+
+            <TextView
+                android:id="@+id/tvRetweetBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="Retweeted"
+                android:textColor="#808080"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivRetweetBadge"
+                android:layout_width="14sp"
+                android:layout_height="14sp"
+                android:layout_marginEnd="4dp"
+                android:scrollbarSize="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvRetweetBadge"
+                app:layout_constraintEnd_toStartOf="@+id/tvRetweetBadge"
+                app:layout_constraintTop_toTopOf="@+id/tvRetweetBadge"
+                app:srcCompat="@drawable/repost_gray" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

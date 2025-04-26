@@ -13,10 +13,13 @@ import androidx.lifecycle.Observer
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.viewmodel.UserLoginViewModel
 
+// BUAT DUMMY DATA ADA DI VIEW MODEL UserLoginViewModel, di function defaultSetup()
+
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding;
     val viewModel by viewModels<UserLoginViewModel>()
 
+    // DONE
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

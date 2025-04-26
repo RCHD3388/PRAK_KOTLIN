@@ -1,9 +1,12 @@
 package com.example.myapplication.entity
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Entity(tableName = "tweets")
 data class TweetEntity(
     @PrimaryKey(autoGenerate = true)
@@ -15,7 +18,7 @@ data class TweetEntity(
     @ColumnInfo(name = "comment") val comment:Int,
     @ColumnInfo(name = "retweet") val retweet:Int,
     @ColumnInfo(name = "retweeted_from") val retweeted_from:Long? = null,
-){
+):Parcelable{
     override fun toString(): String {
         return "$user_name - $user_username";
     }

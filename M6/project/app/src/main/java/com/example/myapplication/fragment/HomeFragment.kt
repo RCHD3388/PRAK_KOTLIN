@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
 import com.example.myapplication.adapter.HomeTweetAdapter
@@ -16,6 +17,8 @@ import com.example.myapplication.databinding.FragmentHomeBinding
 import com.example.myapplication.entity.TweetEntity
 import com.example.myapplication.entity.dto.UserTweetDto
 import com.example.myapplication.viewmodel.HomeViewModel
+import com.example.myapplication.viewmodel.UserLoginViewModel
+import kotlinx.coroutines.delay
 
 class HomeFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding;
@@ -55,7 +58,11 @@ class HomeFragment : Fragment() {
             viewModel.retweetTweet(it)
         }
         homeTweetAdapter.onCommentClickListener = {
-
+            val action = HomeFragmentDirections.actionHomeFragmentToCommentFragment(UserLoginViewModel.COloggedinUser, it)
+            findNavController().navigate(action)
+        }
+        homeTweetAdapter.onUsernameClickListener = {
+            viewModel.setActiveUserByUsername(it.user_username)
         }
 
         binding.rvTweets.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
@@ -65,5 +72,13 @@ class HomeFragment : Fragment() {
             homeTweetAdapter.submitList(it)
         }
         viewModel.tweets.observe(viewLifecycleOwner, tweetObserver)
+
+        val triggerObserver = Observer<Boolean> {
+            if(it){
+                val action = HomeFragmentDirections.actionHomeFragmentToProfileFragment()
+                findNavController().navigate(action)
+            }
+        }
+        viewModel.triggerProfile.observe(viewLifecycleOwner, triggerObserver)
     }
 }

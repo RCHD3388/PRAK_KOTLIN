@@ -24,6 +24,9 @@ interface TweetDao {
     @Query("SELECT * FROM tweets")
     suspend fun fetch():List<TweetEntity>
 
+    @Query("SELECT * FROM tweets where user_username = :username")
+    suspend fun fetchByUsername(username: String):List<TweetEntity>
+
     @Query("SELECT * FROM tweets where tweet_id = :tweetId")
     suspend fun get(tweetId:Long):TweetEntity?
 

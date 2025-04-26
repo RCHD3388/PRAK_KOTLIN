@@ -9,75 +9,70 @@ import com.example.myapplication.entity.NotificationEntity
 import com.example.myapplication.entity.TweetEntity
 import com.example.myapplication.entity.UTLikeEntity
 import com.example.myapplication.entity.UTRetweetEntity
-import com.example.myapplication.entity.UserEntity
 import com.example.myapplication.entity.dto.UserTweetDto
-import kotlinx.coroutines.delay
+import com.example.myapplication.entity.UTCommentEntity
+import com.example.myapplication.entity.UserEntity
 import kotlinx.coroutines.launch
 
-class HomeViewModel: ViewModel() {
-    private val _tweets = MutableLiveData<List<UserTweetDto>>()
-    val tweets: LiveData<List<UserTweetDto>>
-        get() = _tweets
+class CommentViewModel: ViewModel() {
+    private val _comments = MutableLiveData<List<UTCommentEntity>>()
+    val comments: LiveData<List<UTCommentEntity>>
+        get() = _comments
 
-    private val _postErrorMessage = MutableLiveData<String>("")
-    val postErrorMessage: LiveData<String>
-        get() = _postErrorMessage
+    private val _userTweetDto = MutableLiveData<UserTweetDto>()
+    val userTweetDto: LiveData<UserTweetDto>
+        get() = _userTweetDto
 
-    private val _triggerProfile = MutableLiveData<Boolean>(false)
-    val triggerProfile: LiveData<Boolean>
-        get() = _triggerProfile
+    private fun getOriginal(): TweetEntity{
+        return userTweetDto.value!!.originalEntity ?: userTweetDto.value!!.tweetEntity
+    }
 
     private fun refreshList(){
         viewModelScope.launch {
-            val originalTweets: List<TweetEntity> = App.db.tweetDao().fetch()
-            val user = UserLoginViewModel.COloggedinUser
-
-            val userLikes: List<UTLikeEntity>? = App.db.likeDao().get(user.username)
-            _tweets.value = originalTweets.map { tweetEntity ->
-                UserTweetDto(
-                    tweetEntity = tweetEntity,
-                    originalEntity = if(tweetEntity.retweeted_from != null){
-                        originalTweets.find { it.tweet_id == tweetEntity.retweeted_from }
-                    } else {null},
-                    current_user_like_status = if(userLikes != null){
-                        val userLike = if(tweetEntity.retweeted_from != null){
-                            userLikes.find { it.tweet_id == tweetEntity.retweeted_from }
-                        }else{
-                            userLikes.find { it.tweet_id == tweetEntity.tweet_id }
-                        }
-                        if(userLike != null && userLike.liked == true){
-                            true
-                        }else{
-                            false
-                        }
-                    }else{
-                        false
-                    }
-                )
-            }
+            _comments.value = App.db.commentDao().fetchByTweet(getOriginal().tweet_id)
+            val userLike = App.db.likeDao().getOne(UserLoginViewModel.COloggedinUser.username, getOriginal().tweet_id);
+            _userTweetDto.value = UserTweetDto(
+                tweetEntity = App.db.tweetDao().get(_userTweetDto.value!!.tweetEntity.tweet_id)!!,
+                originalEntity = if(_userTweetDto.value!!.originalEntity != null){
+                    App.db.tweetDao().get(_userTweetDto.value!!.originalEntity!!.tweet_id)!!
+                }else{
+                    null
+                },
+                current_user_like_status = userLike?.liked ?: false
+            )
         }
     }
 
-    fun init(){
+    fun init(tweet: UserTweetDto){
+        _userTweetDto.value = tweet
         refreshList()
     }
 
-    fun createNewTweet(tweet: String){
-        val user = UserLoginViewModel.COloggedinUser
+    fun createNewComment(user: UserEntity, comment: String){
+        val currentTweet = getOriginal()
         viewModelScope.launch {
-            if(tweet.isNotEmpty()){
-                val tweetEntity = TweetEntity(user_username = user.username, user_name = user.name, tweet = tweet, like = 0, comment = 0, retweet = 0);
-                App.db.tweetDao().insert(tweetEntity);
-                refreshList()
-            }else{
-                _postErrorMessage.value = "Tweet tidak boleh kosong";
-            }
+            val tweetComment = UTCommentEntity(
+                user_name = user.name,
+                user_username = user.username,
+                tweet_id = currentTweet.tweet_id,
+                comment = comment,
+            );
+            App.db.commentDao().insert(tweetComment);
+            val newCurrentTweet = currentTweet.copy(
+                comment = App.db.commentDao().fetchByTweet(getOriginal().tweet_id)
+                    .count() ?: 0
+            )
+            App.db.tweetDao().update(newCurrentTweet)
+            createNotif(user.username, currentTweet.user_username, "${user.username} replied: \"${comment}\"")
+
+            updateRetweeted(newCurrentTweet)
         }
     }
 
-    fun likeTweet(tweet: UserTweetDto){
-        var currentTweet = tweet.tweetEntity
 
+    fun likeTweet(){
+        val tweet = _userTweetDto.value!!
+        var currentTweet = tweet.tweetEntity
         viewModelScope.launch {
             if(currentTweet.retweeted_from != null){
                 currentTweet = App.db.tweetDao().get(currentTweet.retweeted_from!!)!!;
@@ -115,7 +110,8 @@ class HomeViewModel: ViewModel() {
             updateRetweeted(newCurrentTweet)
         }
     }
-    fun retweetTweet(tweet: UserTweetDto){
+    fun retweetTweet(){
+        val tweet = _userTweetDto.value!!
         val user = UserLoginViewModel.COloggedinUser
         var currentTweet = tweet.tweetEntity
         viewModelScope.launch {
@@ -200,17 +196,6 @@ class HomeViewModel: ViewModel() {
                     note = note
                 )
             )
-        }
-    }
-    fun setActiveUserByUsername(username: String){
-        viewModelScope.launch {
-            val user: UserEntity? = App.db.userDao().get(username)
-            if(user!=null){
-                UserLoginViewModel.setActiveUser(user);
-                _triggerProfile.value = true
-                delay(100)
-                _triggerProfile.value = false
-            }
         }
     }
 }

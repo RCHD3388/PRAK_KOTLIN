@@ -14,4 +14,7 @@ interface UTCommentDao {
 
     @Query("SELECT * FROM comments")
     suspend fun fetch():List<UTCommentEntity>
+
+    @Query("SELECT * FROM comments where tweet_id = :tweetId")
+    suspend fun fetchByTweet(tweetId:Long):List<UTCommentEntity>
 }

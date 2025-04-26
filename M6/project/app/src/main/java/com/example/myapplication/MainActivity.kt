@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
 
         viewModel.init()
+        viewModel.defaultSetup()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         binding.btnRegister.setOnClickListener {

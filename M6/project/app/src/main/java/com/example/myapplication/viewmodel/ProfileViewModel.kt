@@ -9,12 +9,10 @@ import com.example.myapplication.entity.NotificationEntity
 import com.example.myapplication.entity.TweetEntity
 import com.example.myapplication.entity.UTLikeEntity
 import com.example.myapplication.entity.UTRetweetEntity
-import com.example.myapplication.entity.UserEntity
 import com.example.myapplication.entity.dto.UserTweetDto
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class HomeViewModel: ViewModel() {
+class ProfileViewModel: ViewModel() {
     private val _tweets = MutableLiveData<List<UserTweetDto>>()
     val tweets: LiveData<List<UserTweetDto>>
         get() = _tweets
@@ -23,21 +21,16 @@ class HomeViewModel: ViewModel() {
     val postErrorMessage: LiveData<String>
         get() = _postErrorMessage
 
-    private val _triggerProfile = MutableLiveData<Boolean>(false)
-    val triggerProfile: LiveData<Boolean>
-        get() = _triggerProfile
-
     private fun refreshList(){
         viewModelScope.launch {
-            val originalTweets: List<TweetEntity> = App.db.tweetDao().fetch()
-            val user = UserLoginViewModel.COloggedinUser
+            val originalTweets: List<TweetEntity> = App.db.tweetDao().fetchByUsername(UserLoginViewModel.COActivateUser.username)
 
-            val userLikes: List<UTLikeEntity>? = App.db.likeDao().get(user.username)
+            val userLikes: List<UTLikeEntity>? = App.db.likeDao().get(UserLoginViewModel.COloggedinUser.username)
             _tweets.value = originalTweets.map { tweetEntity ->
                 UserTweetDto(
                     tweetEntity = tweetEntity,
                     originalEntity = if(tweetEntity.retweeted_from != null){
-                        originalTweets.find { it.tweet_id == tweetEntity.retweeted_from }
+                        App.db.tweetDao().get(tweetEntity.retweeted_from)
                     } else {null},
                     current_user_like_status = if(userLikes != null){
                         val userLike = if(tweetEntity.retweeted_from != null){
@@ -61,19 +54,7 @@ class HomeViewModel: ViewModel() {
     fun init(){
         refreshList()
     }
-
-    fun createNewTweet(tweet: String){
-        val user = UserLoginViewModel.COloggedinUser
-        viewModelScope.launch {
-            if(tweet.isNotEmpty()){
-                val tweetEntity = TweetEntity(user_username = user.username, user_name = user.name, tweet = tweet, like = 0, comment = 0, retweet = 0);
-                App.db.tweetDao().insert(tweetEntity);
-                refreshList()
-            }else{
-                _postErrorMessage.value = "Tweet tidak boleh kosong";
-            }
-        }
-    }
+    
 
     fun likeTweet(tweet: UserTweetDto){
         var currentTweet = tweet.tweetEntity
@@ -122,9 +103,7 @@ class HomeViewModel: ViewModel() {
             if(currentTweet.retweeted_from != null){
                 currentTweet = App.db.tweetDao().get(currentTweet.retweeted_from!!)!!;
             }
-            // kondisi retweeted post user dengan post terkait untuk saat ini di RETWEETED
             val currentRetweet = App.db.retweetDao().get(user.username, currentTweet.tweet_id.toString());
-            // mendapatkan tweet hasil retweeted di TWEET
             val currentRetweetedTweet = App.db.tweetDao().getRetweeted(user.username, currentTweet.tweet_id);
 
             if(currentRetweet != null) {
@@ -200,17 +179,6 @@ class HomeViewModel: ViewModel() {
                     note = note
                 )
             )
-        }
-    }
-    fun setActiveUserByUsername(username: String){
-        viewModelScope.launch {
-            val user: UserEntity? = App.db.userDao().get(username)
-            if(user!=null){
-                UserLoginViewModel.setActiveUser(user);
-                _triggerProfile.value = true
-                delay(100)
-                _triggerProfile.value = false
-            }
         }
     }
 }

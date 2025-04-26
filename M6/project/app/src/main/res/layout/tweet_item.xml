@@ -30,13 +30,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/baseline_account_circle_24" />
-    
+
             <TextView
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="Richard R"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView2"
                 app:layout_constraintStart_toEndOf="@+id/imageView2"
@@ -53,7 +54,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tvName"
                 app:layout_constraintStart_toEndOf="@+id/tvName"
                 app:layout_constraintTop_toTopOf="@+id/tvName" />
-    
+
             <TextView
                 android:id="@+id/tvTweet"
                 android:layout_width="0dp"
@@ -61,6 +62,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
                 android:text="TextView"
+                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tvName"
                 app:layout_constraintTop_toBottomOf="@+id/tvName" />
@@ -75,7 +77,7 @@
                 app:layout_constraintStart_toStartOf="@+id/tvTweet"
                 app:layout_constraintTop_toBottomOf="@+id/tvTweet"
                 app:srcCompat="@drawable/heart_empty" />
-    
+
             <TextView
                 android:id="@+id/tvLike"
                 android:layout_width="wrap_content"
@@ -83,6 +85,7 @@
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="4dp"
                 android:text="12 Likes"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/ivLike"
                 app:layout_constraintTop_toBottomOf="@+id/tvTweet" />
@@ -96,7 +99,7 @@
                 app:layout_constraintStart_toEndOf="@+id/tvLike"
                 app:layout_constraintTop_toBottomOf="@+id/tvTweet"
                 app:srcCompat="@drawable/comment" />
-    
+
             <TextView
                 android:id="@+id/tvComments"
                 android:layout_width="wrap_content"
@@ -104,6 +107,7 @@
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="4dp"
                 android:text="4 Comments"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/ivComments"
                 app:layout_constraintTop_toBottomOf="@+id/tvTweet" />
@@ -117,7 +121,7 @@
                 app:layout_constraintStart_toEndOf="@+id/tvComments"
                 app:layout_constraintTop_toBottomOf="@+id/tvTweet"
                 app:srcCompat="@drawable/repost" />
-    
+
             <TextView
                 android:id="@+id/tvRetweet"
                 android:layout_width="wrap_content"
@@ -125,6 +129,7 @@
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="4dp"
                 android:text="5 Retweets"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/ivRetweets"
                 app:layout_constraintTop_toBottomOf="@+id/tvTweet" />

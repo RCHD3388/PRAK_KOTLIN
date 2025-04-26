@@ -31,6 +31,8 @@ class HomeActivity : AppCompatActivity() {
             } else if(it.itemId == R.id.im_profile){
                 UserLoginViewModel.setActiveUser(UserLoginViewModel.COloggedinUser);
                 navController.navigate(R.id.action_global_profileFragment)
+            } else {
+                navController.navigate(R.id.action_global_notifFragment)
             }
             true
         }
@@ -38,7 +40,9 @@ class HomeActivity : AppCompatActivity() {
 
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
-        if(navController.currentDestination?.id == R.id.profileFragment || navController.currentDestination?.id == R.id.commentFragment){
+        if(navController.currentDestination?.id == R.id.profileFragment ||
+            navController.currentDestination?.id == R.id.commentFragment ||
+            navController.currentDestination?.id == R.id.notifFragment ){
             navController.navigate(R.id.action_global_homeFragment)
         }
     }

@@ -46,7 +46,7 @@ class CommentFragment : Fragment() {
         initRV()
 
         binding.btnBack.setOnClickListener {
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.action_commentFragment_to_homeFragment)
         }
         binding.btnPost.setOnClickListener {
             val comment = binding.etPostComment.text.toString()

@@ -44,6 +44,9 @@
         <argument
             android:name="tweet"
             app:argType="com.example.myapplication.entity.dto.UserTweetDto" />
+        <action
+            android:id="@+id/action_commentFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/notifFragment"

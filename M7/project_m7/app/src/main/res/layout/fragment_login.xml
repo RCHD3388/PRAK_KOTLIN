@@ -5,7 +5,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#e0e0e0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
@@ -71,9 +72,9 @@
                 android:layout_marginStart="48dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="48dp"
-                android:paddingTop="0dp"
                 android:ems="10"
                 android:inputType="text"
+                android:paddingTop="0dp"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -83,7 +84,7 @@
                 android:id="@+id/btnLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginBottom="64dp"
                 android:backgroundTint="@color/green_button"
                 android:insetTop="0dp"
@@ -94,6 +95,17 @@
                 app:cornerRadius="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cbRememberMe" />
+
+            <CheckBox
+                android:id="@+id/cbRememberMe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="8dp"
+                android:minHeight="0dp"
+                android:text="Remember Me"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/etPassword" />
         </androidx.constraintlayout.widget.ConstraintLayout>

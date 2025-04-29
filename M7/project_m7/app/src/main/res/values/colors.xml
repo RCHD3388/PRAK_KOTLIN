@@ -5,4 +5,7 @@
     <color name="green_back">#57e963</color>
     <color name="green_button">#00f700</color>
     <color name="danger_button">#ff898f</color>
+    <color name="green_soft">#40e476</color>
+
+    <color name="background">#e0e0e0</color>
 </resources>

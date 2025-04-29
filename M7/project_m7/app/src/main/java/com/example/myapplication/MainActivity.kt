@@ -1,6 +1,8 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -10,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.example.myapplication.databinding.ActivityMainBinding
+import com.example.myapplication.network.AppConfiguration
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding;
@@ -19,6 +22,12 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
+        if (AppConfiguration.authRepository.isLoggedInBefore()) {
+            val username = AppConfiguration.authRepository.getLoggedInUsername()
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+        }
 
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.fragmentContainerView) as NavHostFragment

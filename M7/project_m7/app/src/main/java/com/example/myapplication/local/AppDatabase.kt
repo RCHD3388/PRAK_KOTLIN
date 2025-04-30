@@ -18,7 +18,7 @@ import com.example.myapplication.local.dao.UserDao
 @Database(entities = [
     User::class, AuthUser::class,
     Group::class, Member::class, Chat::class
-], version = 6)
+], version = 7)
 abstract class AppDatabase: RoomDatabase(){
     abstract fun userDao(): UserDao
     abstract fun authUserDao(): AuthUserDao

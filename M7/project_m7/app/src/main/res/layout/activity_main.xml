@@ -24,7 +24,8 @@
             android:background="@color/green_back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingTop="14dp">
 
             <TextView
                 android:id="@+id/textView2"

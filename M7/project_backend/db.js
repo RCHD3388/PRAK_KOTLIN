@@ -27,6 +27,67 @@ Users.init({
   }
 }, { sequelize,  underscored: true, timestamps: false, tableName: 'users' });
 
+class Group extends Model {}
+Group.init({
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  name: {
+    type: DataTypes.STRING(255),
+    allowNull: false
+  }
+}, { sequelize, underscored: true, timestamps: false, tableName: 'groups' });
+
+class Member extends Model {}
+Member.init({
+  member_id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  group_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  user_username: {
+    type: DataTypes.STRING(255),
+    allowNull: false
+  }
+}, { sequelize, underscored: true, timestamps: false, tableName: 'members' });
+
+class Chat extends Model {}
+Chat.init({
+  chat_id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  group_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  user_username: {
+    type: DataTypes.STRING(255),
+    allowNull: false
+  },
+  user_name: {
+    type: DataTypes.STRING(255),
+    allowNull: false
+  },
+  chat: {
+    type: DataTypes.STRING(255),
+    allowNull: false
+  },
+  chat_time: {
+    type: DataTypes.BIGINT,
+    allowNull: false
+  }
+}, { sequelize, underscored: true, timestamps: false, tableName: 'chats' });
+
+
 module.exports = {
-    sequelize, Users, DB_NAME, DB_HOST, DB_PASS, DB_USER
+    sequelize, DB_NAME, DB_HOST, DB_PASS, DB_USER, 
+    Users, Group, Member, Chat
 }

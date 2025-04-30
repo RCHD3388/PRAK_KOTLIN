@@ -39,6 +39,10 @@ class HomeFragment : Fragment() {
         binding.btnSearch.setOnClickListener {
             viewModel.refreshGroupList(binding.etSearch.text.toString());
         }
+        binding.btnNewgroup.setOnClickListener {
+            Toast.makeText(requireContext(), "clicked", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_homeFragment_to_creategroupFragment)
+        }
     }
 
     fun setupRv(){

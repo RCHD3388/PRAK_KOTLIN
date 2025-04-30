@@ -7,12 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentChatBinding
 import com.example.myapplication.databinding.FragmentCreategroupBinding
+import com.example.myapplication.viewmodels.CreateGroupViewModel
 
 class CreategroupFragment : Fragment() {
     lateinit var binding: FragmentCreategroupBinding;
+    val viewModel by viewModels<CreateGroupViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +32,7 @@ class CreategroupFragment : Fragment() {
         binding.btnAdd.setOnClickListener {
             val userUsername = binding.etUserName.text.toString();
             if(userUsername.isNotEmpty()){
-
+                viewModel.addTargetUser(userUsername);
             }else{
                 Toast.makeText(requireContext(), "Username tidak boleh kosong", Toast.LENGTH_SHORT).show()
             }
@@ -37,10 +41,14 @@ class CreategroupFragment : Fragment() {
         binding.btnCreate.setOnClickListener {
             val groupName = binding.etGroupname.text.toString()
             if(groupName.isNotEmpty()){
-
+                viewModel.createGroup(groupName);
             }else{
                 Toast.makeText(requireContext(), "Group Name tidak boleh kosong", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp();
         }
     }
 }

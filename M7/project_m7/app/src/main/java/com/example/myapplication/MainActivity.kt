@@ -23,11 +23,11 @@ class MainActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        if (AppConfiguration.authRepository.isLoggedInBefore()) {
-            val username = AppConfiguration.authRepository.getLoggedInUsername()
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-        }
+//        if (AppConfiguration.authRepository.isLoggedInBefore()) {
+//            val username = AppConfiguration.authRepository.getLoggedInUsername()
+//            val intent = Intent(this, HomeActivity::class.java)
+//            startActivity(intent)
+//        }
 
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.fragmentContainerView) as NavHostFragment

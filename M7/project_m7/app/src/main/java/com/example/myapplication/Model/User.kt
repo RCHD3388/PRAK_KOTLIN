@@ -25,6 +25,6 @@ data class LogRegDro(
 @JsonClass(generateAdapter = true)
 data class LogRegResponse(
     val message:String,
-    var data:User,
+    var data:User?,
 )
 

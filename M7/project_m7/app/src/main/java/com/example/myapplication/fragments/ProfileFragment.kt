@@ -26,7 +26,7 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnLogout.setOnClickListener {
-            AppConfiguration.authRepository.clearSession();
+            // AppConfiguration.authRepository.clearSession();
             val intent = Intent(requireContext(), MainActivity::class.java);
             startActivity(intent);
         }

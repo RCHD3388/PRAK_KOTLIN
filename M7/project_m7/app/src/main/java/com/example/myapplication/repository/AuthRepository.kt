@@ -2,6 +2,7 @@ package com.example.myapplication.repository
 
 import android.content.Context
 import com.example.myapplication.Model.LogRegDro
+import com.example.myapplication.Model.LogRegResponse
 import com.example.myapplication.Model.User
 import com.example.myapplication.local.AppDatabase
 import com.example.myapplication.network.AppConfiguration
@@ -34,7 +35,7 @@ class AuthRepository(
             if (response.isSuccessful) {
                 val body = response.body()
                 if (body != null) {
-                    dataSourceLocal.userDao().insert(body.data)
+                    dataSourceLocal.userDao().insert(body.data!!)
                     return Result.success(body.message)
                 } else {
                     return Result.failure(Exception("Respon tidak valid dari server."))
@@ -53,7 +54,7 @@ class AuthRepository(
     suspend fun login(
         username: String,
         password: String,
-    ): Result<String> {
+    ): Result<LogRegResponse> {
         if (!AppConfiguration.isInternetAvailable(context)) {
             return Result.failure(Exception("Tidak ada koneksi internet."))
         }
@@ -68,8 +69,7 @@ class AuthRepository(
             if (response.isSuccessful) {
                 val body = response.body()
                 if (body != null) {
-
-                    return Result.success(body.message)
+                    return Result.success(LogRegResponse(body.message, body.data))
                 } else {
                     return Result.failure(Exception("Respon tidak valid dari server."))
                 }

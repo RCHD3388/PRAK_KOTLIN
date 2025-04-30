@@ -42,7 +42,6 @@ class LoginFragment : Fragment() {
             if(username.isNotEmpty() && password.isNotEmpty()){
                 // do login
                 viewModel.login(username, password);
-                AppConfiguration.authRepository.saveLoginSession(rememberMe, username);
             }else{
                 Toast.makeText(requireContext(), "Username dan Password harus diisi", Toast.LENGTH_SHORT).show()
             }
@@ -51,8 +50,8 @@ class LoginFragment : Fragment() {
 
     private fun setupObserver() {
         viewModel.loginResult.observe(viewLifecycleOwner, Observer { result ->
-            result?.onSuccess { message ->
-                Toast.makeText(requireContext(), "Login berhasil: $message", Toast.LENGTH_SHORT).show()
+            result?.onSuccess {
+                Toast.makeText(requireContext(), "Login berhasil: ${it.message}", Toast.LENGTH_SHORT).show()
                 viewModel.clearRegisterResult()
                 val intent = Intent(requireContext(), HomeActivity::class.java);
                 startActivity(intent)

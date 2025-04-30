@@ -24,7 +24,7 @@ class AppConfiguration {
                 .add(KotlinJsonAdapterFactory())
                 .build()
             val retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.0.4:3000/")
+                .baseUrl("http://10.0.2.2:3000/")
                 .addConverterFactory(MoshiConverterFactory.create(moshi).asLenient())
                 .build()
 

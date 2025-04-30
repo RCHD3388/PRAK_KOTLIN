@@ -13,5 +13,12 @@ abstract class AppDatabase: RoomDatabase(){
 
     companion object {
         val DATABASE_NAME = "222117056_tugas_prak_m7"
+        var currentUser: User? = null;
+        fun loginUser(user: User){
+            currentUser = user;
+        }
+        fun logoutUser(){
+            currentUser = null;
+        }
     }
 }

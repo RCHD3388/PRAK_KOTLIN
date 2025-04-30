@@ -29,6 +29,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.checkLoggedInState()
         setupListener()
         setupObserver()
     }
@@ -41,7 +42,7 @@ class LoginFragment : Fragment() {
 
             if(username.isNotEmpty() && password.isNotEmpty()){
                 // do login
-                viewModel.login(username, password);
+                viewModel.login(username, password, rememberMe);
             }else{
                 Toast.makeText(requireContext(), "Username dan Password harus diisi", Toast.LENGTH_SHORT).show()
             }
@@ -49,10 +50,18 @@ class LoginFragment : Fragment() {
     }
 
     private fun setupObserver() {
+        viewModel.isAlreadLogin.observe(viewLifecycleOwner, Observer { loggedIn ->
+            if(loggedIn){
+                // Navigate to home
+                val intent = Intent(requireContext(), HomeActivity::class.java);
+                startActivity(intent)
+            }
+        })
         viewModel.loginResult.observe(viewLifecycleOwner, Observer { result ->
             result?.onSuccess {
                 Toast.makeText(requireContext(), "Login berhasil: ${it.message}", Toast.LENGTH_SHORT).show()
                 viewModel.clearRegisterResult()
+                // Navigate to home
                 val intent = Intent(requireContext(), HomeActivity::class.java);
                 startActivity(intent)
             }?.onFailure { error ->

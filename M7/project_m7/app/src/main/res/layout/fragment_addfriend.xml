@@ -55,7 +55,7 @@
             android:layout_marginTop="72dp"
             android:layout_marginEnd="32dp"
             android:ems="10"
-            android:hint="input your friend's name"
+            android:hint="input your friend's username"
             android:inputType="text"
             android:paddingTop="0dp"
             android:textAlignment="center"

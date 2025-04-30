@@ -5,6 +5,7 @@ import android.net.ConnectivityManager
 import androidx.room.Room
 import com.example.myapplication.local.AppDatabase
 import com.example.myapplication.repository.AuthRepository
+import com.example.myapplication.repository.FeatureRepository
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -13,6 +14,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 class AppConfiguration {
     companion object{
         lateinit var authRepository: AuthRepository
+        lateinit var featureRepository: FeatureRepository
         fun getApiService(context: Context){
             val roomDB = Room.databaseBuilder(
                 context,
@@ -28,7 +30,8 @@ class AppConfiguration {
                 .addConverterFactory(MoshiConverterFactory.create(moshi).asLenient())
                 .build()
 
-            authRepository = AuthRepository(roomDB, retrofit.create(WebService::class.java), context)
+            authRepository = AuthRepository(roomDB, retrofit.create(WebService::class.java))
+            featureRepository = FeatureRepository(roomDB, retrofit.create(WebService::class.java))
         }
 
         fun parseErrorMessage(json: String?): String? {

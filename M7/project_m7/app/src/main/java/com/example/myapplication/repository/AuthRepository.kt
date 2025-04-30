@@ -1,6 +1,9 @@
 package com.example.myapplication.repository
 
+import android.app.Application
 import android.content.Context
+import com.example.myapplication.App
+import com.example.myapplication.Model.AuthUser
 import com.example.myapplication.Model.LogRegDro
 import com.example.myapplication.Model.LogRegResponse
 import com.example.myapplication.Model.User
@@ -10,18 +13,15 @@ import com.example.myapplication.network.WebService
 
 class AuthRepository(
     private val dataSourceLocal: AppDatabase,
-    private val dataSourceRemote: WebService,
-    private val context: Context
+    private val dataSourceRemote: WebService
 ) {
-    private val prefs = context.getSharedPreferences("auth", Context.MODE_PRIVATE)
-
     suspend fun register(
         name: String,
         username: String,
         password: String
     ): Result<String> {
 
-        if (!AppConfiguration.isInternetAvailable(context)) {
+        if (!AppConfiguration.isInternetAvailable(App.instance.applicationContext)) {
             return Result.failure(Exception("Tidak ada koneksi internet."))
         }
 
@@ -55,7 +55,7 @@ class AuthRepository(
         username: String,
         password: String,
     ): Result<LogRegResponse> {
-        if (!AppConfiguration.isInternetAvailable(context)) {
+        if (!AppConfiguration.isInternetAvailable(App.instance.applicationContext)) {
             return Result.failure(Exception("Tidak ada koneksi internet."))
         }
 
@@ -69,7 +69,10 @@ class AuthRepository(
             if (response.isSuccessful) {
                 val body = response.body()
                 if (body != null) {
-                    return Result.success(LogRegResponse(body.message, body.data))
+                    // add to local
+                    dataSourceLocal.userDao().insert(body.data!!)
+                    // return success response
+                    return Result.success(body)
                 } else {
                     return Result.failure(Exception("Respon tidak valid dari server."))
                 }
@@ -84,23 +87,31 @@ class AuthRepository(
         }
     }
 
-    fun saveLoginSession(rememberMeStats: Boolean, username: String){
-        if(rememberMeStats){
-            val editorPreferences = prefs.edit();
-            editorPreferences.putString("username", username);
-            editorPreferences.putLong("login_time", System.currentTimeMillis());
-            editorPreferences.apply()
+    suspend fun saveLoginSession(username: String){
+        dataSourceLocal.authUserDao().saveSession(
+            AuthUser(
+                "LOGIN_SESSION",
+                username,
+                System.currentTimeMillis()
+            )
+        )
+    }
+    suspend fun isLoggedInBefore(): Boolean {
+        val authUser = dataSourceLocal.authUserDao().getCurrentAuth("LOGIN_SESSION")
+        if(authUser != null){
+            val returnValue = authUser.loginTimestamp + (24 * 60 * 60 * 1000) > System.currentTimeMillis()
+            if(!returnValue){
+                clearSession()
+            }
+            return returnValue;
         }
+        return false;
     }
-    fun isLoggedInBefore(): Boolean {
-        val loginTime = prefs.getLong("login_time", 0L)
-        val oneDayMillis = 24 * 60 * 60 * 1000L
-        return System.currentTimeMillis() - loginTime < oneDayMillis
+    suspend fun getLoggedInUser(): User? {
+        val authUser = dataSourceLocal.authUserDao().getCurrentAuth("LOGIN_SESSION")
+        return dataSourceLocal.userDao().get(authUser?.username ?: "");
     }
-    fun getLoggedInUsername(): String? {
-        return prefs.getString("username", null)
-    }
-    fun clearSession() {
-        prefs.edit().clear().apply()
+    suspend fun clearSession() {
+        dataSourceLocal.authUserDao().clearSession();
     }
 }

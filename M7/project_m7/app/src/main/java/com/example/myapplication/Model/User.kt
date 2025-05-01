@@ -27,3 +27,9 @@ data class LogRegResponse(
     var data:User?,
 )
 
+@JsonClass(generateAdapter = true)
+data class SingleUserResponse(
+    val message:String,
+    var data:User?,
+)
+

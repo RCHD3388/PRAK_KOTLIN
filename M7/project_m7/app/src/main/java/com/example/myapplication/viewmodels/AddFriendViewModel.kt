@@ -7,8 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.Model.CreateGroupDro
 import com.example.myapplication.Model.CreateGroupResponse
-import com.example.myapplication.Model.GroupSingleResponse
-import com.example.myapplication.Model.LogRegResponse
 import com.example.myapplication.local.AppDatabase
 import com.example.myapplication.network.AppConfiguration
 import kotlinx.coroutines.launch

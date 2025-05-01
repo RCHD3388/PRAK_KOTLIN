@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.network.AppConfiguration
 
+//DONE
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding;
     lateinit var navController: NavController

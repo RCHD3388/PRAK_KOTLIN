@@ -47,11 +47,11 @@ data class GroupMultiResponse(
     var data:List<GroupMultiData>,
 )
 
-// get single group response
+// get grouop information response
 @JsonClass(generateAdapter = true)
-data class GroupSingleResponse(
+data class GroupInformationResponse(
     val message:String,
-    var data:Group?,
+    var data:GroupMultiData,
 )
 
 // response for repository fetch response
@@ -59,4 +59,12 @@ data class GroupFetchResponse(
     val group:Group,
     var last_chat:Chat?,
     var alternatif_name: String = ""
+)
+
+// response for repository single group response
+data class GroupDataDto(
+    val group:Group,
+    var last_chat:Chat?,
+    var alternatif_name: String = "",
+    var chats: List<Chat>?
 )

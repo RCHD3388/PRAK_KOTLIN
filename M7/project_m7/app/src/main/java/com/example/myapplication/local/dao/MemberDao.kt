@@ -16,8 +16,8 @@ interface MemberDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMembers(groups: List<Member>)
 
-    @Query("SELECT * FROM members")
-    suspend fun fetch():List<Member>
+    @Query("SELECT * FROM members where group_id = :groupId")
+    suspend fun fetchByGroupId(groupId: Int):List<Member>
 
     @Query("SELECT * FROM members WHERE user_username = :username")
     suspend fun fetchByUser(username: String): List<Member>

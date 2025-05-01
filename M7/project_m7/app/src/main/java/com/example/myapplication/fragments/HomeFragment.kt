@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
 import com.example.myapplication.adapters.HomeGroupAdapter
 import com.example.myapplication.databinding.FragmentHomeBinding
+import com.example.myapplication.local.AppDatabase
 import com.example.myapplication.viewmodels.HomeViewModel
 
 class HomeFragment : Fragment() {
@@ -40,7 +41,6 @@ class HomeFragment : Fragment() {
             viewModel.refreshGroupList(binding.etSearch.text.toString());
         }
         binding.btnNewgroup.setOnClickListener {
-            Toast.makeText(requireContext(), "clicked", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_homeFragment_to_creategroupFragment)
         }
     }
@@ -48,7 +48,9 @@ class HomeFragment : Fragment() {
     fun setupRv(){
         homeGroupAdapter = HomeGroupAdapter()
         homeGroupAdapter.onItemClickListener = {
-            Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show();
+            // go to chat fragment
+            AppDatabase.activeGroupId = it.group;
+            findNavController().navigate(R.id.action_homeFragment_to_chatFragment)
         }
         binding.rvFriendList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvFriendList.adapter = homeGroupAdapter

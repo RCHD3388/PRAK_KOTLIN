@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.myapplication.HomeActivity
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
@@ -35,8 +36,17 @@ class ProfileFragment : Fragment() {
 
         setupProfileStat()
 
+        if(AppDatabase.activeUser != AppDatabase.currentUser){
+            binding.btnLogout.text = "Back"
+        }
+
         binding.btnLogout.setOnClickListener {
-            viewModel.logout()
+            if(AppDatabase.activeUser == AppDatabase.currentUser){
+                viewModel.logout()
+            }else{
+                AppDatabase.activeUser = null;
+                findNavController().navigateUp()
+            }
         }
 
         viewModel.logoutResult.observe(viewLifecycleOwner, Observer { result ->
@@ -49,7 +59,7 @@ class ProfileFragment : Fragment() {
     }
 
     fun setupProfileStat(){
-        binding.tvUsername.text = AppDatabase.currentUser?.username ?: ""
-        binding.tvDisplayname.text = AppDatabase.currentUser?.name ?: ""
+        binding.tvUsername.text = AppDatabase.activeUser?.username ?: ""
+        binding.tvDisplayname.text = AppDatabase.activeUser?.name ?: ""
     }
 }

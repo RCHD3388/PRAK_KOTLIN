@@ -29,6 +29,12 @@ data class SingleChatResponse(
 )
 
 @JsonClass(generateAdapter = true)
+data class CreateChatResponse(
+    val message:String,
+    var data:Chat,
+)
+
+@JsonClass(generateAdapter = true)
 data class CreateChatDro(
     val username: String,
     val chat: String,

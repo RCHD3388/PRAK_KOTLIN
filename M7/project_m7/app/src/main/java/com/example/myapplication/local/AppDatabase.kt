@@ -18,7 +18,7 @@ import com.example.myapplication.local.dao.UserDao
 @Database(entities = [
     User::class, AuthUser::class,
     Group::class, Member::class, Chat::class
-], version = 7)
+], version = 8)
 abstract class AppDatabase: RoomDatabase(){
     abstract fun userDao(): UserDao
     abstract fun authUserDao(): AuthUserDao
@@ -29,6 +29,8 @@ abstract class AppDatabase: RoomDatabase(){
     companion object {
         val DATABASE_NAME = "222117056_tugas_prak_m7"
         var currentUser: User? = null;
+        var activeUser: User? = null;
+        var activeGroupId: Group? = null
         fun loginUser(user: User){
             currentUser = user;
         }

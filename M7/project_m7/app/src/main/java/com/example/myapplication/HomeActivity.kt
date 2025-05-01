@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.myapplication.databinding.ActivityHomeBinding
 import com.example.myapplication.databinding.ActivityMainBinding
+import com.example.myapplication.local.AppDatabase
 
 class HomeActivity : AppCompatActivity() {
     lateinit var binding: ActivityHomeBinding;
@@ -30,6 +31,7 @@ class HomeActivity : AppCompatActivity() {
             } else if(it.itemId == R.id.im_addfriend){
                 navController.navigate(R.id.action_global_addfriendFragment)
             } else if(it.itemId == R.id.im_profile){
+                AppDatabase.activeUser = AppDatabase.currentUser;
                 navController.navigate(R.id.action_global_profileFragment)
             }
             true

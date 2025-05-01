@@ -44,6 +44,7 @@ app.post('/login', async (req, res) => {
 // CHATTING API
 app.get('/users/:username', async (req, res) => {
   const { username } = req.params;
+  console.log(username)
   if (!username) return res.status(400).json({ error: 'Username harus diisi' });
 
   try {
@@ -64,13 +65,13 @@ app.post('/group', async (req, res) => {
   try {
     const users = await Users.findAll({ where: { username: { [Op.in]: members } } });
     if (users.length !== members.length) {
-      return res.status(400).json({ error: 'Ada username yang tidak ditemukan' });
+      return res.status(400).json({ error: 'Pastikan username dari user sudah tepat' });
     }
 
     // check for private duplicate
     if (name === "") {
       const allPrivateChat = await Group.findAll({ where: { name } });
-      allPrivateChat.forEach(async (group) => {
+      for (const group of allPrivateChat) {
         let findMembers = await Member.findAll({ where: { group_id: group.id } });
         let membersUsername = findMembers.map((member) => member.user_username).sort();
         let sortedInputMembers = members.sort();
@@ -78,7 +79,7 @@ app.post('/group', async (req, res) => {
         if (membersUsername.join(',') == sortedInputMembers.join(',')) {
           return res.status(400).json({ error: 'Sudah pernah anda add sebelumnya' });
         }
-      })
+      }
     }
 
     const group = await Group.create({ name });
@@ -117,12 +118,11 @@ app.get('/users/:username/groups', async (req, res) => {
       const users = await Users.findAll({ where: { username: { [Op.in]: userIds } } });
       return {
         group,
-        chats,
+        chat: chats,
         members,
         users,
       };
     }));
-
     return res.status(200).json({ message: 'Group berhasil diambil', data });
 
   } catch (error) {
@@ -130,7 +130,7 @@ app.get('/users/:username/groups', async (req, res) => {
     return res.status(500).json({ error: 'An error occurred during get groups.' });
   }
 });
-app.get('/group/:group_id/chat', async (req, res) => {
+app.get('/group/:group_id', async (req, res) => {
   const { group_id } = req.params;
   if (!group_id) return res.status(400).json({ error: 'Group ID harus diisi' });
 
@@ -140,8 +140,20 @@ app.get('/group/:group_id/chat', async (req, res) => {
       return res.status(404).json({ error: 'Group tidak ditemukan' });
     }
 
-    const chats = await Chat.findAll({ where: { group_id: group_id } });
-    return res.status(200).json({ message: 'Chat berhasil diambil', data: chats });
+    const chats = await Chat.findAll({
+      where: { group_id: group.id },
+      order: [['chat_time', 'ASC']],
+    });
+    const members = await Member.findAll({ where: { group_id: group.id } });
+    const userIds = members.map((member) => member.user_username);
+    const users = await Users.findAll({ where: { username: { [Op.in]: userIds } } });
+
+    return res.status(200).json({ message: 'Group information berhasil diambil', data: {
+      group,
+      chats,
+      members,
+      users,
+    } });
   } catch (error) {
     console.log(error)
     return res.status(500).json({ error: 'An error occurred during get chat.' });
@@ -160,7 +172,7 @@ app.post('/group/:group_id/chat', async (req, res) => {
     }
 
     const newChat = await Chat.create({
-      group_id: groupId,
+      group_id: group_id,
       user_username: username,
       user_name: user.name,
       chat, chat_time: chat_time
